@@ -116,7 +116,7 @@ export default function FlujoTickets() {
                         </p>
                     </div>
 
-                    <span className="badge bg-light text-dark border">
+                    <span className="badge bg-body-tertiary text-body border">
                         Gestión de tickets
                     </span>
                 </div>

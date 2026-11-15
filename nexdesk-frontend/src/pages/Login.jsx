@@ -65,7 +65,7 @@ export default function Login() {
 
   // 4. Interfaz de inicio de sesión
   return (
-    <div className="min-vh-100 d-flex align-items-center bg-light">
+    <div className="min-vh-100 d-flex align-items-center bg-body-tertiary">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-7 col-lg-5 col-xl-4">

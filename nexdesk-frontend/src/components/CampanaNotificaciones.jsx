@@ -106,7 +106,7 @@ export default function CampanaNotificaciones() {
     <div className="position-relative">
       <button
         type="button"
-        className="btn btn-light position-relative"
+        className="btn btn-outline-secondary position-relative"
         aria-label={`Notificaciones: ${pendientes} sin leer`}
         aria-expanded={abierto}
         onClick={() => {

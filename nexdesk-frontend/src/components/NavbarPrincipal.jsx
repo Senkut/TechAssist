@@ -1,10 +1,12 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { useTheme } from "../hooks/useTheme";
 import CampanaNotificaciones from "./CampanaNotificaciones";
 
 export default function NavbarPrincipal({ abrirMenu }) {
   const { usuario, logout } = useAuth();
+  const { theme, change } = useTheme();
   const navigate = useNavigate();
 
   // ==========================================
@@ -47,7 +49,7 @@ export default function NavbarPrincipal({ abrirMenu }) {
 
         <button
           type="button"
-          className="btn btn-light nexdesk-menu-toggle"
+          className="btn btn-outline-secondary nexdesk-menu-toggle"
           onClick={abrirMenu}
           aria-label="Abrir menú"
         >
@@ -68,6 +70,16 @@ export default function NavbarPrincipal({ abrirMenu }) {
 
       {/* SECCIÓN DERECHA */}
       <div className="d-flex align-items-center gap-3">
+
+        <button
+        type="button"
+            className="btn btn-outline-secondary btn-sm"
+            onClick={change}
+            aria-label="Cambiar tema"
+            title="Cambiar tema"
+        > 
+          {theme === "dark" ? "☀️" : "🌙"}
+        </button>
 
         {/* CAMPANA DE NOTIFICACIONES */}
         <CampanaNotificaciones />
