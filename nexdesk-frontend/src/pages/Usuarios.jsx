@@ -589,7 +589,7 @@ export default function Usuarios() {
           ) : !error && (
             <div className="table-responsive">
               <table className="table table-hover align-middle">
-                <thead className="table-light">
+                <thead className="table-secondary">
                   <tr>
                     <th>ID</th>
                     <th>Usuario</th>

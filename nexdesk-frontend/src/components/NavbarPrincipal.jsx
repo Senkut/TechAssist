@@ -1,6 +1,7 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import BotonTema from "./BotonTema";
 import CampanaNotificaciones from "./CampanaNotificaciones";
 
 export default function NavbarPrincipal({ abrirMenu }) {
@@ -47,7 +48,7 @@ export default function NavbarPrincipal({ abrirMenu }) {
 
         <button
           type="button"
-          className="btn btn-light nexdesk-menu-toggle"
+          className="btn btn-outline-secondary nexdesk-menu-toggle"
           onClick={abrirMenu}
           aria-label="Abrir menú"
         >
@@ -68,6 +69,8 @@ export default function NavbarPrincipal({ abrirMenu }) {
 
       {/* SECCIÓN DERECHA */}
       <div className="d-flex align-items-center gap-3">
+
+        <BotonTema />
 
         {/* CAMPANA DE NOTIFICACIONES */}
         <CampanaNotificaciones />

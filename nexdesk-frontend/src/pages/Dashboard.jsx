@@ -143,7 +143,7 @@ export default function Dashboard() {
                     {modulo.icono}
                   </div>
 
-                  <h3 className="h6 fw-bold text-dark">
+                  <h3 className="h6 fw-bold text-body">
                     {modulo.titulo}
                   </h3>
 

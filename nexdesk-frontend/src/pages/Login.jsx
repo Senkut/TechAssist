@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import EstadoBackend from "../components/EstadoBackend";
 import { useAuth } from "../hooks/useAuth";
+import BotonTema from "../components/BotonTema";
 
 export default function Login() {
   // 1. Navegación y autenticación
@@ -65,12 +66,16 @@ export default function Login() {
 
   // 4. Interfaz de inicio de sesión
   return (
-    <div className="min-vh-100 d-flex align-items-center bg-light">
+    <div className="login-page">
+      <div className="login-theme-toggle">
+        <BotonTema />
+      </div>
+      
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-7 col-lg-5 col-xl-4">
 
-            <div className="card border-0 shadow-lg rounded-4">
+            <div className="card login-card">
               <div className="card-body p-4 p-md-5">
 
                 {/* Identidad visual */}
