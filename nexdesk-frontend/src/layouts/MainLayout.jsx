@@ -1,29 +1,35 @@
+import { Outlet, useLocation } from "react-router-dom";
 
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
-
-import Sidebar from "../components/Sidebar";
 import NavbarPrincipal from "../components/NavbarPrincipal";
+import { MENU } from "../config/menu";
 
 export default function MainLayout() {
-  const [menuAbierto, setMenuAbierto] = useState(false);
+  const { pathname } = useLocation();
+
+  // Título de la sección actual (solo presentación)
+  const seccion = MENU.find((opcion) => pathname.startsWith(opcion.ruta));
+  const esPanel = !seccion || seccion.ruta === "/dashboard";
 
   return (
     <div className="nexdesk-app">
-      <Sidebar
-        abierto={menuAbierto}
-        cerrar={() => setMenuAbierto(false)}
-      />
+      <NavbarPrincipal />
 
-      <div className="nexdesk-main">
-        <NavbarPrincipal
-          abrirMenu={() => setMenuAbierto(true)}
-        />
+      <div className="skya-subheader">
+        <div className="skya-subheader-inner">
+          <div>
+            <strong>{esPanel ? "Panel de Gestión" : seccion.titulo}</strong>
+            <small>Sistema Integral de Gestión de Soporte Técnico</small>
+          </div>
 
-        <main className="nexdesk-content">
-          <Outlet />
-        </main>
+          <div className="skya-crumbs">
+            Inicio / <b>{esPanel ? "Panel de control" : seccion.titulo}</b>
+          </div>
+        </div>
       </div>
+
+      <main className="nexdesk-main nexdesk-content">
+        <Outlet />
+      </main>
     </div>
   );
 }

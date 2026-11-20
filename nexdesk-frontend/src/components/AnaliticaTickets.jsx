@@ -1,5 +1,5 @@
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -8,8 +8,8 @@ import autoTable from "jspdf-autotable";
 // ==========================================
 
 const ESTADOS = [
-  ["abierto", "Abiertos", "#3b82f6"],
-  ["asignado", "Asignados", "#06b6d4"],
+  ["abierto", "Abiertos", "#0f766e"],
+  ["asignado", "Asignados", "#2dd4bf"],
   ["en_proceso", "En proceso", "#f59e0b"],
   ["resuelto", "Resueltos", "#10b981"],
   ["cerrado", "Cerrados", "#64748b"],
@@ -94,7 +94,11 @@ export default function AnaliticaTickets({
   cargando = false,
   error = "",
   onActualizar,
+  panelLateral = null,
 }) {
+
+  // Fecha de referencia para la gráfica de actividad
+  const [ahora] = useState(() => Date.now());
 
   // ========================================
   // 4. CALCULAR INDICADORES
@@ -151,12 +155,46 @@ export default function AnaliticaTickets({
     };
   }, [tickets]);
 
-  const maxEstado = Math.max(
-    1,
-    ...resumen.estados.map(
-      (estado) => estado.cantidad
-    )
-  );
+  // Tickets creados en las últimas 4 semanas
+  const actividad = useMemo(() => {
+    const semana = 7 * 24 * 60 * 60 * 1000;
+    return [0, 1, 2, 3].map((i) => {
+      const fin = ahora - (3 - i) * semana;
+      const inicio = fin - semana;
+      const cantidad = tickets.filter((t) => {
+        const f = new Date(t.fecha_creacion).getTime();
+        return !Number.isNaN(f) && f > inicio && f <= fin;
+      }).length;
+      const etiqueta = new Date(fin).toLocaleDateString("es-CO", {
+        day: "2-digit",
+        month: "short",
+      });
+      return { etiqueta, cantidad };
+    });
+  }, [tickets, ahora]);
+
+  // Geometría de la gráfica de actividad
+  const maxActividad = Math.max(1, ...actividad.map((p) => p.cantidad));
+  const puntosActividad = actividad.map((p, i) => ({
+    ...p,
+    x: 30 + i * ((400 - 60) / 3),
+    y: 120 - (p.cantidad / maxActividad) * 90,
+  }));
+  const lineaActividad = puntosActividad.map((p) => `${p.x},${p.y}`).join(" ");
+  const areaActividad = `30,120 ${lineaActividad} ${puntosActividad[3].x},120`;
+
+  // Geometría de la dona de estados
+  const RADIO = 42;
+  const CIRCUNFERENCIA = 2 * Math.PI * RADIO;
+  const conCantidad = resumen.estados.filter((e) => e.cantidad > 0);
+  const segmentosDona = conCantidad.map((e, i) => {
+    const largo = (e.cantidad / Math.max(1, resumen.total)) * CIRCUNFERENCIA;
+    const previo = conCantidad
+      .slice(0, i)
+      .reduce((suma, x) => suma + x.cantidad, 0);
+    const desfase = -(previo / Math.max(1, resumen.total)) * CIRCUNFERENCIA;
+    return { clave: e.clave, color: e.color, largo, desfase };
+  });
 
   // ========================================
   // 5. EXPORTAR REPORTE CSV
@@ -206,7 +244,7 @@ export default function AnaliticaTickets({
       .toLocaleDateString("sv-SE");
 
     const nombreArchivo =
-      `NEXDESK_reporte_tickets_${fecha}.csv`;
+      `SKYA_reporte_tickets_${fecha}.csv`;
 
     descargarCSV(nombreArchivo, filas);
   }
@@ -230,7 +268,7 @@ export default function AnaliticaTickets({
     pdf.setTextColor(255, 255, 255);
     pdf.setFont("helvetica", "bold");
     pdf.setFontSize(19);
-    pdf.text("NEXDESK", margen, 13);
+    pdf.text("SKYA", margen, 13);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
     pdf.text("Sistema Integral de Gestion de Soporte Tecnico", margen, 20);
@@ -320,290 +358,291 @@ export default function AnaliticaTickets({
       pdf.line(margen, alto - 12, ancho - margen, alto - 12);
       pdf.setTextColor(...gris);
       pdf.setFontSize(8);
-      pdf.text("NEXDESK | Reporte de tickets", margen, alto - 7);
+      pdf.text("SKYA | Reporte de tickets", margen, alto - 7);
       pdf.text(`Pagina ${pagina} de ${paginas}`, ancho - margen, alto - 7, { align: "right" });
     }
 
     const fechaArchivo = new Date().toLocaleDateString("sv-SE");
-    pdf.save(`NEXDESK_reporte_tickets_${fechaArchivo}.pdf`);
+    pdf.save(`SKYA_reporte_tickets_${fechaArchivo}.pdf`);
   }
 
   // ========================================
   // 6. INTERFAZ
   // ========================================
 
+  const resueltos =
+    resumen.estados.find((e) => e.clave === "resuelto")?.cantidad || 0;
+  const cerrados =
+    resumen.estados.find((e) => e.clave === "cerrado")?.cantidad || 0;
+
+  const indicadores = [
+    ["Tickets visibles", resumen.total, "bi-ticket-perforated", true],
+    ["En atención / pendientes", resumen.activos, "bi-clock-history", false],
+    ["Resueltos", resueltos, "bi-check2-circle", false],
+    ["Cerrados", cerrados, "bi-x-circle", false],
+  ];
+
+  const sinDatos = cargando && !tickets.length;
+
   return (
-    <section
-      className="mb-4"
-      aria-label="Analítica de tickets"
-    >
-
-      {/* ENCABEZADO */}
-
-      <div className="d-flex justify-content-between align-items-center gap-2 flex-wrap mb-3">
-
-        <div>
-          <h2 className="h5 fw-bold mb-1">
-            Analítica de soporte
-          </h2>
-
-          <p className="text-secondary small mb-0">
-            Datos de tickets visibles según tu rol
-          </p>
-        </div>
-
-        <div className="d-flex gap-2 flex-wrap">
-
-          <button
-            type="button"
-            className="btn btn-sm btn-outline-success"
-            onClick={exportarReporteCSV}
-            disabled={
-              cargando ||
-              Boolean(error) ||
-              tickets.length === 0
-            }
-            title="Descargar reporte de tickets en CSV"
-          >
-            <span aria-hidden="true">↓ </span>
-            Exportar CSV
-          </button>
-
-          <button
-            type="button"
-            className="btn btn-sm btn-outline-danger"
-            onClick={exportarReportePDF}
-            disabled={cargando || Boolean(error) || tickets.length === 0}
-            title="Descargar reporte de tickets en PDF"
-          >
-            <span aria-hidden="true">↓ </span>
-            Exportar PDF
-          </button>
-
-          <button
-            type="button"
-            className="btn btn-sm btn-outline-primary"
-            onClick={onActualizar}
-            disabled={cargando || !onActualizar}
-          >
-            {cargando
-              ? "Actualizando..."
-              : "Actualizar gráficas"}
-          </button>
-
-        </div>
-
-      </div>
-
-      {/* MENSAJE DE ERROR */}
-
-      {error && (
-        <div
-          className="alert alert-warning"
-          role="alert"
-        >
-          No se pudieron cargar las gráficas: {error}
-        </div>
-      )}
+    <section className="mb-4" aria-label="Analítica de tickets">
 
       {/* =====================================
-          7. TARJETAS DE INDICADORES
+          FILA SUPERIOR: SALUDO + INDICADORES
       ===================================== */}
 
       <div className="row g-3 mb-3">
 
-        {[
-          ["Tickets visibles", resumen.total],
-          [
-            "En atención / pendientes",
-            resumen.activos,
-          ],
-          [
-            "Resueltos",
-            resumen.estados.find(
-              (estado) => estado.clave === "resuelto"
-            )?.cantidad || 0,
-          ],
-          [
-            "Cerrados",
-            resumen.estados.find(
-              (estado) => estado.clave === "cerrado"
-            )?.cantidad || 0,
-          ],
-        ].map(([nombre, valor]) => (
+        {panelLateral && (
+          <div className="col-12 col-xl-4">{panelLateral}</div>
+        )}
 
-          <div
-            className="col-6 col-xl-3"
-            key={nombre}
-          >
+        <div className={panelLateral ? "col-12 col-xl-8" : "col-12"}>
 
-            <div className="card border-0 shadow-sm rounded-4 h-100">
-
-              <div className="card-body p-3">
-
-                <div className="small text-secondary">
-                  {nombre}
-                </div>
-
-                <div className="fs-2 fw-bold mt-1">
-                  {cargando && !tickets.length
-                    ? "…"
-                    : valor}
-                </div>
-
-              </div>
-
+          {/* ENCABEZADO */}
+          <div className="d-flex justify-content-between align-items-center gap-2 flex-wrap mb-3">
+            <div>
+              <h2 className="h5 fw-bold mb-1">Analítica de soporte</h2>
+              <p className="text-secondary small mb-0">
+                Datos de tickets visibles según tu rol
+              </p>
             </div>
 
+            <div className="d-flex gap-2 flex-wrap">
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-success"
+                onClick={exportarReporteCSV}
+                disabled={cargando || Boolean(error) || tickets.length === 0}
+                title="Descargar reporte de tickets en CSV"
+              >
+                <i className="bi bi-download me-1" aria-hidden="true"></i>
+                Exportar CSV
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-danger"
+                onClick={exportarReportePDF}
+                disabled={cargando || Boolean(error) || tickets.length === 0}
+                title="Descargar reporte de tickets en PDF"
+              >
+                <i className="bi bi-download me-1" aria-hidden="true"></i>
+                Exportar PDF
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-primary"
+                onClick={onActualizar}
+                disabled={cargando || !onActualizar}
+              >
+                {cargando ? "Actualizando..." : "Actualizar gráficas"}
+              </button>
+            </div>
           </div>
 
-        ))}
+          {/* MENSAJE DE ERROR */}
+          {error && (
+            <div className="alert alert-warning" role="alert">
+              No se pudieron cargar las gráficas: {error}
+            </div>
+          )}
 
+          {/* TARJETAS DE INDICADORES */}
+          <div className="row g-3">
+            {indicadores.map(([nombre, valor, icono, principal]) => (
+              <div className="col-6" key={nombre}>
+                <div className={`skya-stat ${principal ? "principal" : ""}`}>
+                  <div className="rotulo">{nombre}</div>
+                  <div className="valor">{sinDatos ? "…" : valor}</div>
+                  <span className="icono">
+                    <i className={`bi ${icono}`} aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
       </div>
 
       {/* =====================================
-          8. TICKETS POR ESTADO
+          FILA INFERIOR: DONA + ACTIVIDAD
       ===================================== */}
 
       <div className="row g-3">
 
-        <div className="col-12">
+        {/* TICKETS POR ESTADO */}
+        <div className="col-12 col-lg-5">
+          <div className="skya-chart-card">
+            <h3>
+              <i className="bi bi-pie-chart-fill" aria-hidden="true"></i>
+              Tickets por estado
+            </h3>
+            <p className="sub">Distribución según el estado actual</p>
 
-          <div className="card border-0 shadow-sm rounded-4 h-100">
-
-            <div className="card-body p-4">
-
-              <h3 className="h6 fw-bold mb-4">
-                Tickets por estado
-              </h3>
-
-              {resumen.estados.map((estado) => (
-
-                <div
-                  key={estado.clave}
-                  className="mb-3"
+            <div className="skya-donut">
+              <svg
+                width="150"
+                height="150"
+                viewBox="0 0 100 100"
+                role="img"
+                aria-label={`Total de tickets: ${resumen.total}`}
+              >
+                <circle
+                  cx="50" cy="50" r={RADIO}
+                  fill="none" stroke="var(--bs-tertiary-bg)" strokeWidth="12"
+                />
+                <g transform="rotate(-90 50 50)">
+                  {segmentosDona.map((seg) => (
+                    <circle
+                      key={seg.clave}
+                      cx="50" cy="50" r={RADIO}
+                      fill="none"
+                      stroke={seg.color}
+                      strokeWidth="12"
+                      strokeDasharray={`${Math.max(0, seg.largo - 0.8)} ${CIRCUNFERENCIA}`}
+                      strokeDashoffset={seg.desfase}
+                    />
+                  ))}
+                </g>
+                <text
+                  x="50" y="52" textAnchor="middle"
+                  fontSize="20" fontWeight="800" fill="currentColor"
                 >
+                  {resumen.total}
+                </text>
+                <text
+                  x="50" y="64" textAnchor="middle"
+                  fontSize="6.5" fill="var(--bs-secondary-color)"
+                >
+                  tickets
+                </text>
+              </svg>
 
-                  <div className="d-flex justify-content-between small mb-1">
+              <ul className="skya-legend">
+                {resumen.estados.map((estado) => (
+                  <li key={estado.clave}>
+                    <span className="punto" style={{ background: estado.color }} />
+                    <span>{estado.nombre}</span>
+                    <b>{estado.cantidad}</b>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
 
-                    <span>
-                      {estado.nombre}
-                    </span>
+        {/* ACTIVIDAD RECIENTE */}
+        <div className="col-12 col-lg-7">
+          <div className="skya-chart-card skya-actividad">
+            <div className="d-flex justify-content-between align-items-start gap-2">
+              <div>
+                <h3>
+                  <i className="bi bi-activity" aria-hidden="true"></i>
+                  Actividad reciente
+                </h3>
+                <p className="sub">
+                  Tickets creados en las últimas cuatro semanas
+                </p>
+              </div>
+              <span className="skya-pill">Último mes</span>
+            </div>
 
-                    <strong>
-                      {estado.cantidad}
-                    </strong>
+            <svg
+              viewBox="0 0 400 160"
+              role="img"
+              aria-label="Tickets creados por semana en el último mes"
+            >
+              <defs>
+                <linearGradient id="skya-area" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#2dd4bf" stopOpacity="0.35" />
+                  <stop offset="1" stopColor="#2dd4bf" stopOpacity="0" />
+                </linearGradient>
+              </defs>
 
+              {[30, 75, 120].map((y) => (
+                <line
+                  key={y} x1="30" x2="370" y1={y} y2={y}
+                  stroke="var(--bs-border-color)" strokeDasharray="3 4"
+                />
+              ))}
+
+              <polygon points={areaActividad} fill="url(#skya-area)" />
+              <polyline
+                points={lineaActividad}
+                fill="none" stroke="#0f766e" strokeWidth="2.5"
+                strokeLinejoin="round" strokeLinecap="round"
+              />
+
+              {puntosActividad.map((p, i) => (
+                <g key={p.etiqueta + i}>
+                  <circle
+                    cx={p.x} cy={p.y}
+                    r={i === 3 ? 5 : 3.5}
+                    fill={i === 3 ? "#0f766e" : "#fff"}
+                    stroke="#0f766e" strokeWidth="2"
+                  />
+                  <text
+                    x={p.x} y={p.y - 10} textAnchor="middle"
+                    fontSize="10" fontWeight="700" fill="currentColor"
+                  >
+                    {p.cantidad}
+                  </text>
+                  <text
+                    x={p.x} y="146" textAnchor="middle"
+                    fontSize="9" fill="var(--bs-secondary-color)"
+                  >
+                    {p.etiqueta}
+                  </text>
+                </g>
+              ))}
+            </svg>
+          </div>
+        </div>
+
+        {/* DISTRIBUCIÓN POR PRIORIDAD */}
+        <div className="col-12">
+          <div className="skya-chart-card skya-prio">
+            <h3 className="mb-3">
+              <i className="bi bi-flag-fill" aria-hidden="true"></i>
+              Distribución por prioridad
+            </h3>
+
+            <div className="row g-3">
+              {resumen.prioridades.map((prioridad) => (
+                <div className="col-md-4" key={prioridad.nombre}>
+                  <div className="d-flex justify-content-between small mb-2">
+                    <span>{prioridad.nombre}</span>
+                    <strong>{prioridad.cantidad}</strong>
                   </div>
 
                   <div
                     className="progress"
-                    style={{ height: 11 }}
+                    style={{ height: 12 }}
                     role="progressbar"
-                    aria-label={estado.nombre}
-                    aria-valuenow={estado.cantidad}
+                    aria-label={`Prioridad ${prioridad.nombre}`}
+                    aria-valuenow={prioridad.cantidad}
                     aria-valuemin={0}
-                    aria-valuemax={maxEstado}
+                    aria-valuemax={Math.max(1, resumen.total)}
                   >
-
                     <div
                       className="progress-bar"
                       style={{
+                        backgroundColor: prioridad.color,
                         width: `${
-                          (estado.cantidad / maxEstado) * 100
+                          resumen.total
+                            ? (prioridad.cantidad / resumen.total) * 100
+                            : 0
                         }%`,
-                        backgroundColor: estado.color,
                       }}
                     />
-
                   </div>
-
                 </div>
-
               ))}
-
             </div>
-
           </div>
-
-        </div>
-
-        {/* =====================================
-            9. DISTRIBUCIÓN POR PRIORIDAD
-        ===================================== */}
-
-        <div className="col-12">
-
-          <div className="card border-0 shadow-sm rounded-4">
-
-            <div className="card-body p-4">
-
-              <h3 className="h6 fw-bold mb-3">
-                Distribución por prioridad
-              </h3>
-
-              <div className="row g-3">
-
-                {resumen.prioridades.map(
-                  (prioridad) => (
-
-                    <div
-                      className="col-md-4"
-                      key={prioridad.nombre}
-                    >
-
-                      <div className="d-flex justify-content-between small mb-2">
-
-                        <span>
-                          {prioridad.nombre}
-                        </span>
-
-                        <strong>
-                          {prioridad.cantidad}
-                        </strong>
-
-                      </div>
-
-                      <div
-                        className="progress"
-                        style={{ height: 14 }}
-                        role="progressbar"
-                        aria-label={`Prioridad ${prioridad.nombre}`}
-                        aria-valuenow={prioridad.cantidad}
-                        aria-valuemin={0}
-                        aria-valuemax={Math.max(1, resumen.total)}
-                      >
-
-                        <div
-                          className="progress-bar"
-                          style={{
-                            backgroundColor:
-                              prioridad.color,
-
-                            width: `${
-                              resumen.total
-                                ? (
-                                    prioridad.cantidad /
-                                    resumen.total
-                                  ) * 100
-                                : 0
-                            }%`,
-                          }}
-                        />
-
-                      </div>
-
-                    </div>
-
-                  )
-                )}
-
-              </div>
-
-            </div>
-
-          </div>
-
         </div>
 
       </div>

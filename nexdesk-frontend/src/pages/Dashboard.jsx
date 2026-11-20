@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useAuth } from "../hooks/useAuth";
-import { menuPorRol } from "../config/menu";
+import { menuPorRol, ICONOS_BI } from "../config/menu";
 import ToastBienvenida from "../components/ToastBienvenida";
 
 import FlujoTickets from "../components/FlujoTickets";
@@ -62,60 +62,42 @@ export default function Dashboard() {
 
   return (
     <div className="container-fluid">
-      <div className="mb-4">
-        <div className="text-secondary small mb-1">
-          Inicio / Panel de control
-        </div>
-
-        <h1 className="h3 fw-bold mb-2">
-          ¡Hola, {nombre}! 👋
-        </h1>
-
-        <p className="text-secondary mb-0">
-          Bienvenido al centro de gestión de NEXDESK.
-        </p>
-      </div>
-
-      <div className="card border-0 shadow-sm rounded-4 mb-4">
-        <div className="card-body p-4">
-          <div className="row align-items-center g-3">
-            <div className="col-md-8">
-              <div className="text-secondary small mb-2">
-                CUENTA AUTENTICADA
-              </div>
-
-              <h2 className="h5 fw-bold">
-                {[usuario?.nombre, usuario?.apellido]
-                  .filter(Boolean)
-                  .join(" ")}
-              </h2>
-
-              <p className="text-secondary mb-2">
-                {usuario?.email}
-              </p>
-
-              <span className="badge text-bg-primary">
-                {usuario?.rol}
-              </span>
-            </div>
-
-            <div className="col-md-4 text-md-end">
-              <Link
-                to="/cambiar-password"
-                className="btn btn-outline-primary"
-              >
-                Seguridad de mi cuenta
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <AnaliticaTickets
         tickets={ticketsAnalitica}
         cargando={cargandoAnalitica}
         error={errorAnalitica}
         onActualizar={() => setRecargaAnalitica(n => n + 1)}
+        panelLateral={
+          <div className="skya-hero">
+            <h1>¡Hola, {nombre}!</h1>
+            <p>Bienvenido al centro de gestión de SKYA.</p>
+
+            <div className="skya-hero-account">
+              <div className="rotulo">CUENTA AUTENTICADA</div>
+
+              <div className="d-flex align-items-center gap-3">
+                <span className="skya-hero-avatar">
+                  {nombre.charAt(0).toUpperCase()}
+                </span>
+
+                <div className="min-w-0">
+                  <strong className="d-block">
+                    {[usuario?.nombre, usuario?.apellido]
+                      .filter(Boolean)
+                      .join(" ")}
+                  </strong>
+                  <small>{usuario?.email}</small>
+                  <span className="skya-hero-role">{usuario?.rol}</span>
+                </div>
+              </div>
+
+              <Link to="/cambiar-password" className="btn-hero d-inline-block">
+                <i className="bi bi-shield-lock me-2" aria-hidden="true"></i>
+                Seguridad de mi cuenta
+              </Link>
+            </div>
+          </div>
+        }
       />
 
       <div className="d-flex align-items-center justify-content-between mb-3">
@@ -140,7 +122,7 @@ export default function Dashboard() {
               <div className="card nexdesk-module-card h-100 border-0 shadow-sm rounded-4">
                 <div className="card-body p-4">
                   <div className="nexdesk-module-icon mb-3">
-                    {modulo.icono}
+                    <i className={`bi ${ICONOS_BI[modulo.ruta] || "bi-grid"}`} aria-hidden="true"></i>
                   </div>
 
                   <h3 className="h6 fw-bold text-body">
@@ -152,7 +134,7 @@ export default function Dashboard() {
                   </p>
 
                   <span className="small fw-semibold text-primary">
-                    Abrir módulo →
+                    Abrir módulo <i className="bi bi-arrow-right" aria-hidden="true"></i>
                   </span>
                 </div>
               </div>
@@ -163,7 +145,7 @@ export default function Dashboard() {
 
       <div className="alert alert-light border mt-4 rounded-3">
         <FlujoTickets />
-        Los módulos se conectarán a la API REST de NEXDESK
+        Los módulos se conectarán a la API REST de SKYA
         en los siguientes bloques.
       </div>
 

@@ -45,7 +45,7 @@ export default function Sidebar({ abierto, cerrar }) {
               }
             >
               <span className="nexdesk-nav-icon">
-                {opcion.icono}
+                <i className={`bi ${opcion.icono}`} aria-hidden="true"></i>
               </span>
               <span>{opcion.titulo}</span>
             </NavLink>

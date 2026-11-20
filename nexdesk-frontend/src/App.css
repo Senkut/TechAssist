@@ -1,76 +1,515 @@
-/* ---------- Botón de cambio de tema ---------- */
-
-.btn-tema {
-  width: 40px;
-  height: 40px;
-  display: inline-grid;
-  place-items: center;
-  padding: 0;
-  font-size: 18px;
-  line-height: 1;
-  color: var(--bs-body-color);
-  background: var(--bs-body-bg);
-  border: 1px solid var(--bs-border-color);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-}
-
-.btn-tema:hover {
-  transform: rotate(-12deg) scale(1.06);
-  border-color: var(--nx-primary);
-  box-shadow: 0 0 0 0.2rem rgba(var(--nx-primary-rgb), 0.18);
-}
-
-.btn-tema:focus-visible {
-  outline: 2px solid var(--nx-primary);
-  outline-offset: 2px;
-}
-
-/* ---------- Pantalla de login ---------- */
-
-.login-page {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
+/* ---------- BOTONES ---------- */
+.btn {
+  --bs-btn-border-radius: 999px;
+  --bs-btn-padding-x: 1.1rem;
+  font-weight: 600;
+  display: inline-flex;
   align-items: center;
-  background:
-    radial-gradient(900px 420px at 90% -5%, rgba(var(--nx-primary-rgb), 0.2), transparent 60%),
-    radial-gradient(700px 360px at -5% 105%, rgba(245, 158, 11, 0.14), transparent 60%),
-    var(--bs-tertiary-bg);
+  justify-content: center;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease;
 }
+.btn.btn-sm { --bs-btn-padding-x: .85rem; }
+.btn:not(:disabled):hover { transform: translateY(-1px); }
+.btn-primary, .btn-success, .btn-danger { box-shadow: 0 6px 14px -6px rgba(0,0,0,.35); }
+.btn-close { transform: none !important; }
+.btn i.bi { line-height: 1; }
 
-/* Esquina superior derecha */
-.login-theme-toggle {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 10;
+/* ---------- POSICIÓN ---------- */
+.nexdesk-acciones { justify-content: flex-end; align-items: center; }
+@media (max-width: 575px) {
+  .nexdesk-acciones { width: 100%; flex-direction: column-reverse; }
+  .nexdesk-acciones .btn { width: 100%; }
 }
+.nexdesk-topbar-acciones { margin-left: auto; }
+
+/* ---------- ICONOS ---------- */
+.nexdesk-nav-icon { font-size: 1.15rem; }
+.nexdesk-logo i { font-size: 1.6rem; }
+
+/* ---------- BOTÓN DE TEMA ---------- */
+.btn-tema {
+  width: 40px; height: 40px; display: inline-grid; place-items: center;
+  border-radius: 50%; border: 1px solid var(--bs-border-color);
+  background: var(--bs-body-bg); color: var(--bs-body-color);
+  font-size: 1.1rem; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  transition: transform .2s ease;
+}
+.btn-tema:hover { transform: rotate(18deg) scale(1.06); }
+.btn-tema .bi-sun-fill { color: #f59e0b; }
+.btn-tema .bi-moon-stars-fill { color: #6366f1; }
+
+/* ---------- LOGIN: FONDO ---------- */
+.login-page {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(var(--nx-primary-rgb, 13,110,253), .22), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(245,158,11,.16), transparent 45%),
+    linear-gradient(135deg, var(--bs-tertiary-bg), var(--bs-body-bg));
+}
+.login-page::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(127,127,127,.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127,127,127,.10) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at center, #000 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, #000 30%, transparent 80%);
+}
+.login-forma { position: absolute; border-radius: 50%; pointer-events: none;
+  animation: login-flotar 14s ease-in-out infinite alternate; }
+.login-forma-1 { width: 340px; height: 340px; top: -110px; left: -90px;
+  background: rgba(var(--nx-primary-rgb, 13,110,253), .30); }
+.login-forma-2 { width: 260px; height: 260px; bottom: -90px; right: -60px;
+  background: rgba(245,158,11,.28); animation-delay: -5s; }
+.login-forma-3 { width: 120px; height: 120px; top: 58%; left: 9%;
+  background: rgba(var(--nx-primary-rgb, 13,110,253), .18); animation-delay: -9s; }
+@keyframes login-flotar { from { transform: translateY(0) scale(1); } to { transform: translateY(28px) scale(1.08); } }
+@media (prefers-reduced-motion: reduce) { .login-forma { animation: none; } }
+
+.login-theme-toggle { position: absolute; top: 18px; right: 18px; z-index: 5; }
 
 .login-card {
-  border: 1px solid var(--bs-border-color) !important;
-  border-radius: 1.25rem !important;
-  box-shadow: 0 18px 50px rgba(8, 40, 42, 0.14) !important;
+  background: rgba(var(--bs-body-bg-rgb), .82);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(127,127,127,.18) !important;
+}
+.login-card .input-group-text { background: var(--bs-tertiary-bg); color: var(--bs-secondary-color); }
+
+/* =========================================================
+   SKYA · Tema visual (solo presentación, sin lógica)
+   Se carga DESPUÉS de index.css y App.css
+========================================================= */
+
+:root {
+  --sk-deep: #0a3436;
+  --sk-deep-2: #0d4547;
+  --sk-teal: #0f766e;
+  --sk-teal-2: #0b5f58;
+  --sk-mint: #2dd4bf;
+  --sk-mint-soft: #d9f3ef;
+  --sk-ink: #0b2f33;
+  --sk-muted: #5b7073;
+  --sk-bg: #f1f7f7;
+  --sk-surface: #ffffff;
+  --sk-line: rgba(15, 118, 110, 0.12);
+  --sk-shadow: 0 10px 30px -16px rgba(10, 60, 62, 0.28);
+  --sk-radius: 18px;
+
+  --nx-primary: var(--sk-teal);
+  --nx-radius: var(--sk-radius);
+  --bs-body-font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bs-body-color: var(--sk-ink);
+  --bs-secondary-color: var(--sk-muted);
+  --bs-secondary-color-rgb: 91, 112, 115;
 }
 
-/* ---------- Detalles generales ---------- */
+[data-bs-theme="dark"] {
+  --sk-deep: #061f20;
+  --sk-deep-2: #0a2d2f;
+  --sk-mint-soft: #0d3b38;
+  --sk-ink: #e6f4f2;
+  --sk-muted: #9bb5b6;
+  --sk-bg: #081a1b;
+  --sk-surface: #0f2527;
+  --sk-line: rgba(94, 234, 212, 0.14);
+  --sk-shadow: 0 10px 30px -16px rgba(0, 0, 0, 0.6);
 
-.card {
-  transition: box-shadow 0.2s;
+  --bs-body-bg: #0b1e20;
+  --bs-body-bg-rgb: 11, 30, 32;
+  --bs-tertiary-bg: #0f2527;
+  --bs-body-color: #e6f4f2;
+  --bs-secondary-color: #9bb5b6;
+  --bs-border-color: rgba(94, 234, 212, 0.16);
 }
 
-.table > thead {
-  --bs-table-bg: var(--bs-tertiary-bg);
+body {
+  font-family: var(--bs-body-font-family);
+  color: var(--bs-body-color);
 }
+
+h1, h2, h3, h4, h5, h6 { letter-spacing: -0.01em; }
+
+/* ---------- Fondo general ---------- */
+.nexdesk-app { background: var(--sk-bg); }
+.nexdesk-main { margin-left: 0; }
+.nexdesk-content { padding: 26px clamp(16px, 3vw, 40px) 48px; max-width: 1480px; margin: 0 auto; }
+
+/* ---------- Tarjetas ---------- */
+.nexdesk-content .card,
+.skya-card {
+  background: var(--sk-surface);
+  border: 1px solid var(--sk-line);
+  border-radius: var(--sk-radius);
+}
+.nexdesk-content .card.shadow-sm { box-shadow: var(--sk-shadow) !important; }
+.nexdesk-content .card.rounded-4 { border-radius: var(--sk-radius) !important; }
+
+/* ---------- Botones ---------- */
+.btn-primary {
+  --bs-btn-bg: var(--sk-teal);
+  --bs-btn-border-color: var(--sk-teal);
+  --bs-btn-hover-bg: var(--sk-teal-2);
+  --bs-btn-hover-border-color: var(--sk-teal-2);
+  background-image: linear-gradient(135deg, var(--sk-teal), #0d8a80);
+}
+.btn-primary:hover { background-image: linear-gradient(135deg, var(--sk-teal-2), var(--sk-teal)); }
+.btn-primary, .btn-success, .btn-danger { box-shadow: 0 8px 16px -10px rgba(15, 118, 110, 0.7); }
+
+.btn-sm { font-size: 0.78rem; }
+
+.btn-outline-primary { background: var(--sk-surface); }
+.btn-outline-success {
+  --bs-btn-color: #15803d;
+  --bs-btn-border-color: #86d9a4;
+  --bs-btn-hover-bg: #15803d;
+  --bs-btn-hover-border-color: #15803d;
+  background: var(--sk-surface);
+}
+.btn-outline-danger {
+  --bs-btn-color: #dc2626;
+  --bs-btn-border-color: #f3a5a5;
+  --bs-btn-hover-bg: #dc2626;
+  --bs-btn-hover-border-color: #dc2626;
+  background: var(--sk-surface);
+}
+.btn-outline-warning {
+  --bs-btn-color: #b45309;
+  --bs-btn-border-color: #f5c06a;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #d97706;
+  --bs-btn-hover-border-color: #d97706;
+  background: #fffbeb;
+}
+[data-bs-theme="dark"] .btn-outline-warning { background: rgba(245, 158, 11, 0.08); --bs-btn-color: #fbbf24; }
+[data-bs-theme="dark"] .btn-outline-success { --bs-btn-color: #4ade80; --bs-btn-border-color: #166534; }
+[data-bs-theme="dark"] .btn-outline-danger { --bs-btn-color: #f87171; --bs-btn-border-color: #7f1d1d; }
+
+/* ---------- Formularios ---------- */
+.form-control, .form-select {
+  border-radius: 12px;
+  background-color: var(--bs-tertiary-bg);
+  border-color: var(--sk-line);
+  font-size: 0.9rem;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+.form-control:focus, .form-select:focus { background-color: var(--sk-surface); }
+.form-label { font-size: 0.82rem; font-weight: 600; color: var(--sk-ink); }
+
+.skya-search { position: relative; }
+.skya-search > i {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--sk-muted); pointer-events: none;
+}
+.skya-search > input { padding-left: 40px; }
+
+/* ---------- Tablas ---------- */
+.nexdesk-content .table {
+  --bs-table-bg: transparent;
+  --bs-table-hover-bg: rgba(15, 118, 110, 0.05);
+  --bs-table-border-color: var(--sk-line);
+  font-size: 0.86rem;
+}
+.nexdesk-content .table > thead { --bs-table-bg: var(--bs-tertiary-bg); }
+.nexdesk-content .table > thead th {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--sk-muted);
+  background: var(--bs-tertiary-bg);
+  border-bottom: 0;
+  padding: 0.8rem 0.9rem;
+  white-space: nowrap;
+}
+.nexdesk-content .table > thead th:first-child { border-radius: 12px 0 0 12px; }
+.nexdesk-content .table > thead th:last-child { border-radius: 0 12px 12px 0; }
+.nexdesk-content .table > tbody td { padding: 0.85rem 0.9rem; border-color: var(--sk-line); }
+.nexdesk-content .table .btn-sm { --bs-btn-padding-y: 0.25rem; --bs-btn-padding-x: 0.75rem; --bs-btn-font-size: 0.72rem; }
+
+/* ---------- Insignias ---------- */
+.badge {
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  padding: 0.42em 0.95em;
+}
+.badge.text-bg-primary { background-color: var(--sk-teal) !important; color: #fff !important; }
+.badge.text-bg-success { background-color: #16a34a !important; color: #fff !important; }
+.badge.text-bg-secondary { background-color: #64748b !important; }
+
+.skya-rol-superadmin { background-color: #0b3b3d !important; color: #fff !important; }
+.skya-rol-admin { background-color: #0f766e !important; color: #fff !important; }
+.skya-rol-tecnico { background-color: #0d9488 !important; color: #fff !important; }
+.skya-rol-usuario { background-color: #99e6dc !important; color: #064e48 !important; }
+
+/* =========================================================
+   NAVBAR SUPERIOR
+========================================================= */
+.skya-nav {
+  position: sticky; top: 0; z-index: 1030;
+  background: linear-gradient(90deg, var(--sk-deep) 0%, var(--sk-deep-2) 100%);
+  color: #fff;
+  box-shadow: 0 6px 20px -12px rgba(0, 0, 0, 0.5);
+}
+.skya-nav-inner {
+  display: flex; align-items: center; gap: 22px;
+  padding: 10px clamp(14px, 2.4vw, 36px);
+  min-height: 66px;
+}
+.skya-brand {
+  display: flex; align-items: center; gap: 11px;
+  color: #fff; text-decoration: none; flex-shrink: 0;
+}
+.skya-brand:hover { color: #fff; }
+.skya-brand-mark {
+  width: 40px; height: 40px; border-radius: 12px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+  box-shadow: 0 6px 14px -6px rgba(45, 212, 191, 0.8);
+}
+.skya-brand strong { display: block; font-size: 1.02rem; font-weight: 800; letter-spacing: 0.04em; line-height: 1.1; }
+.skya-brand small { display: block; font-size: 0.6rem; color: #9fc7c3; line-height: 1.2; }
+
+.skya-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; flex-wrap: wrap; }
+.skya-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 14px; border-radius: 999px;
+  font-size: 0.78rem; font-weight: 600;
+  color: rgba(255, 255, 255, 0.82); text-decoration: none;
+  transition: background-color 0.18s, color 0.18s;
+}
+.skya-link:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.skya-link.activo { background: var(--sk-mint); color: #053a36; font-weight: 700; }
+.skya-link i { font-size: 0.9rem; line-height: 1; }
+
+.skya-nav-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0; }
+.skya-nav-toggle {
+  display: none; width: 40px; height: 40px; border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25); background: transparent; color: #fff; font-size: 1.3rem;
+}
+
+.skya-nav .btn-tema {
+  width: 36px; height: 36px; background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.18); box-shadow: none; font-size: 1rem;
+}
+.skya-nav .btn-tema .bi-sun-fill { color: #fcd34d; }
+.skya-nav .btn-tema .bi-moon-stars-fill { color: #c7d2fe; }
+
+.skya-bell {
+  width: 38px; height: 38px; padding: 0 !important; border-radius: 50% !important;
+  display: inline-grid !important; place-items: center;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #fcd34d !important; box-shadow: none !important;
+}
+.skya-bell:hover { background: rgba(255, 255, 255, 0.2) !important; }
+.skya-bell .badge { font-size: 0.6rem; padding: 0.3em 0.5em; border: 2px solid var(--sk-deep); }
+
+.skya-user { color: #fff !important; padding: 4px 6px !important; border-radius: 999px !important; }
+.skya-user:hover { background: rgba(255, 255, 255, 0.08); }
+.skya-user .nexdesk-avatar {
+  width: 34px; height: 34px; background: #fff; color: var(--sk-teal); font-size: 0.85rem;
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.35);
+}
+.skya-user strong { color: #fff; font-size: 0.78rem; }
+.skya-user small { color: #9fc7c3 !important; font-size: 0.66rem; text-transform: capitalize; }
+
+.skya-nav .dropdown-menu { border-radius: 14px; padding: 8px; min-width: 220px; }
+.skya-nav .dropdown-item { border-radius: 9px; font-size: 0.85rem; }
+
+/* Subcabecera de página */
+.skya-subheader { background: var(--sk-surface); border-bottom: 1px solid var(--sk-line); }
+.skya-subheader-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 12px clamp(14px, 2.4vw, 36px);
+}
+.skya-subheader strong { display: block; font-size: 0.9rem; font-weight: 800; color: var(--sk-ink); }
+.skya-subheader small { color: var(--sk-muted); font-size: 0.7rem; }
+.skya-crumbs { font-size: 0.72rem; color: var(--sk-muted); }
+.skya-crumbs b { color: var(--sk-ink); font-weight: 700; }
+
+@media (max-width: 991px) {
+  .skya-nav-toggle { display: inline-grid; place-items: center; }
+  .skya-nav-inner { flex-wrap: wrap; gap: 10px; }
+  .skya-links {
+    display: none; order: 5; width: 100%; flex-direction: column; align-items: stretch;
+    padding-bottom: 10px;
+  }
+  .skya-links.abierto { display: flex; }
+  .skya-link { padding: 11px 14px; font-size: 0.88rem; }
+  .skya-user .nexdesk-user-info { display: none; }
+}
+
+/* =========================================================
+   LOGIN
+========================================================= */
+.skya-login {
+  position: relative; min-height: 100vh; overflow: hidden;
+  display: flex; align-items: center;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(45, 212, 191, 0.16), transparent 45%),
+    linear-gradient(135deg, #f7fcfb 0%, #e4f4f1 100%);
+}
+[data-bs-theme="dark"] .skya-login {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(45, 212, 191, 0.12), transparent 45%),
+    linear-gradient(135deg, #07191a 0%, #0b2527 100%);
+}
+.skya-login-corner {
+  position: absolute; top: -170px; right: -150px; width: 380px; height: 380px; border-radius: 50%;
+  background: linear-gradient(135deg, #0f766e, #2dd4bf); opacity: 0.95; pointer-events: none;
+}
+.skya-login-wave { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 26vh; min-height: 140px; pointer-events: none; }
+.skya-login-toggle { position: absolute; top: 18px; right: 22px; z-index: 6; }
+
+.skya-login-grid {
+  position: relative; z-index: 2; width: 100%; max-width: 1180px; margin: 0 auto;
+  padding: 40px 24px 120px;
+  display: grid; grid-template-columns: 1fr minmax(320px, 410px); gap: 48px; align-items: center;
+}
+.skya-login-brand { text-align: center; }
+.skya-wordmark {
+  font-size: clamp(3rem, 6vw, 4.6rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1;
+  color: var(--sk-ink); margin: 14px 0 12px;
+}
+.skya-login-brand p { color: var(--sk-ink); font-size: 1.05rem; line-height: 1.35; margin: 0 auto; max-width: 320px; }
+.skya-login-brand hr { width: 260px; margin: 26px auto; border-color: var(--sk-line); opacity: 1; }
+.skya-tagline { font-style: italic; color: var(--sk-ink); font-size: 1.05rem; }
+.skya-tagline b { color: var(--sk-teal); font-style: italic; }
+[data-bs-theme="dark"] .skya-tagline b { color: #5eead4; }
+
+.skya-login-card {
+  background: var(--sk-surface);
+  border: 1px solid var(--sk-line); border-radius: 26px;
+  padding: 30px 30px 26px;
+  box-shadow: 0 30px 60px -28px rgba(10, 60, 62, 0.45);
+}
+.skya-login-card h1 { font-size: 1.35rem; font-weight: 800; text-align: center; margin: 8px 0 14px; }
+.skya-divider { display: flex; align-items: center; gap: 10px; color: var(--sk-muted); font-size: 0.72rem; margin-bottom: 20px; }
+.skya-divider::before, .skya-divider::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--sk-teal)); opacity: 0.5; }
+.skya-divider::after { transform: scaleX(-1); }
+
+.skya-field { position: relative; margin-bottom: 14px; }
+.skya-field > i.lead {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--sk-muted); font-size: 1rem;
+}
+.skya-field .form-control { padding-left: 42px; padding-right: 44px; min-height: 46px; }
+.skya-eye {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  border: 0; background: transparent; color: var(--sk-muted); width: 32px; height: 32px; border-radius: 50%;
+}
+.skya-eye:hover { background: var(--sk-mint-soft); color: var(--sk-teal); }
+
+.skya-submit {
+  width: 100%; min-height: 46px; border-radius: 14px !important; margin-top: 6px;
+  background-image: linear-gradient(135deg, #0f766e, #0b5f58) !important;
+  box-shadow: 0 14px 24px -14px rgba(15, 118, 110, 0.9) !important;
+  gap: 10px;
+}
+
+.skya-login-card section { margin-top: 18px !important; }
+.skya-login-foot { text-align: center; color: var(--sk-teal); font-size: 0.75rem; font-weight: 700; margin: 18px 0 0; }
+[data-bs-theme="dark"] .skya-login-foot { color: #5eead4; }
+
+@media (max-width: 991px) {
+  .skya-login-grid { grid-template-columns: 1fr; padding: 70px 16px 120px; }
+  .skya-login-brand { display: none; }
+  .skya-login-card { margin: 0 auto; width: 100%; max-width: 420px; }
+}
+
+/* Cambiar contraseña (usa el mismo fondo) */
+.skya-login .card { border-radius: 26px; }
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+.skya-hero {
+  height: 100%; color: #fff; border-radius: 22px; padding: 28px;
+  background: linear-gradient(165deg, #0d4a4a 0%, #0a3436 100%);
+  box-shadow: var(--sk-shadow);
+  display: flex; flex-direction: column;
+}
+.skya-hero h1 { font-size: 1.7rem; font-weight: 800; margin: 0 0 6px; }
+.skya-hero > p { color: #b8dcd8; font-size: 0.82rem; margin: 0 0 22px; }
+.skya-hero-account {
+  margin-top: auto; padding: 18px; border-radius: 16px;
+  background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.skya-hero-account .rotulo { font-size: 0.62rem; letter-spacing: 0.1em; color: #8fc4be; margin-bottom: 12px; }
+.skya-hero-avatar {
+  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.92); color: var(--sk-teal);
+  display: grid; place-items: center; font-weight: 800;
+}
+.skya-hero-account strong { font-size: 0.9rem; }
+.skya-hero-account small { color: #b8dcd8; font-size: 0.72rem; display: block; word-break: break-all; }
+.skya-hero-role {
+  display: inline-block; margin-top: 4px; padding: 2px 11px; border-radius: 999px;
+  background: var(--sk-mint); color: #053a36; font-size: 0.62rem; font-weight: 800;
+}
+.skya-hero .btn-hero {
+  margin-top: 16px; border: 1px solid rgba(255, 255, 255, 0.55); color: #fff; background: transparent;
+  font-size: 0.76rem; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-decoration: none;
+}
+.skya-hero .btn-hero:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
+
+/* Tarjetas de indicador */
+.skya-stat {
+  position: relative; overflow: hidden; height: 100%;
+  background: var(--sk-surface); border: 1px solid var(--sk-line); border-radius: 18px;
+  padding: 16px 18px 20px; box-shadow: var(--sk-shadow);
+  min-height: 118px;
+}
+.skya-stat .rotulo { font-size: 0.72rem; color: var(--sk-muted); font-weight: 600; }
+.skya-stat .valor { font-size: 2.1rem; font-weight: 800; line-height: 1.1; margin-top: 8px; color: var(--sk-ink); }
+.skya-stat .icono {
+  position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 10px;
+  display: grid; place-items: center; background: var(--sk-mint-soft); color: var(--sk-teal); font-size: 1rem;
+}
+.skya-stat::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34px; opacity: 0.55;
+  background: radial-gradient(120px 22px at 70% 120%, rgba(45, 212, 191, 0.25), transparent);
+}
+.skya-stat.principal { background: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 100%); border-color: transparent; }
+.skya-stat.principal .rotulo, .skya-stat.principal .valor { color: #fff; }
+.skya-stat.principal .icono { background: rgba(255, 255, 255, 0.25); color: #fff; }
+
+/* Gráficas */
+.skya-chart-card { background: var(--sk-surface); border: 1px solid var(--sk-line); border-radius: 18px; padding: 22px; box-shadow: var(--sk-shadow); height: 100%; }
+.skya-chart-card h3 { font-size: 0.95rem; font-weight: 800; display: flex; align-items: center; gap: 8px; margin: 0; }
+.skya-chart-card h3 i { color: var(--sk-teal); }
+.skya-chart-card .sub { font-size: 0.72rem; color: var(--sk-muted); margin: 2px 0 14px; }
+.skya-pill { font-size: 0.66rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: var(--sk-mint-soft); color: var(--sk-teal); }
+[data-bs-theme="dark"] .skya-pill { color: #5eead4; }
+
+.skya-donut { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.skya-donut svg { flex-shrink: 0; }
+.skya-legend { flex: 1; min-width: 150px; list-style: none; margin: 0; padding: 0; }
+.skya-legend li { display: flex; align-items: center; gap: 9px; font-size: 0.78rem; padding: 4px 0; }
+.skya-legend .punto { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.skya-legend b { margin-left: auto; }
+
+.skya-actividad svg { width: 100%; height: auto; display: block; }
+
+.skya-prio .progress { background: var(--bs-tertiary-bg); border-radius: 999px; }
+.skya-prio .progress-bar { border-radius: 999px; }
+
+/* Módulos */
+.nexdesk-module-card { border-radius: 18px !important; }
+.nexdesk-module-icon { background: var(--sk-mint-soft); color: var(--sk-teal); }
+[data-bs-theme="dark"] .nexdesk-module-icon { color: #5eead4; }
+
+/* Notificación de bienvenida */
+.nexdesk-toast { border-left-color: var(--sk-teal); }
+.nexdesk-toast-progress { background: var(--sk-mint); }
+.nexdesk-toast-icon { background: var(--sk-mint-soft); color: var(--sk-teal); }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-tema,
-  .card {
-    transition: none;
-  }
-
-  .btn-tema:hover {
-    transform: none;
-  }
+  .skya-link { transition: none; }
 }
+
+/* Login: el mensaje "Servidor accesible" sobra en el diseño compacto */
+.skya-login-card section p.text-secondary { display: none; }
+.skya-login-card section .btn-link { font-size: 0.7rem; }

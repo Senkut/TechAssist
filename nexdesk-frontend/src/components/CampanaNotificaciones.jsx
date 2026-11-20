@@ -106,7 +106,7 @@ export default function CampanaNotificaciones() {
     <div className="position-relative">
       <button
         type="button"
-        className="btn btn-outline-secondary position-relative"
+        className="btn skya-bell position-relative"
         aria-label={`Notificaciones: ${pendientes} sin leer`}
         aria-expanded={abierto}
         onClick={() => {
@@ -117,7 +117,7 @@ export default function CampanaNotificaciones() {
           }
         }}
       >
-        <span aria-hidden="true">🔔</span>
+        <i className="bi bi-bell-fill" aria-hidden="true"></i>
 
         {pendientes > 0 && (
           <span

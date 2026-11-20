@@ -399,7 +399,7 @@ export default function Usuarios() {
 
           <p className="text-secondary mb-0">
             Consulta, filtra y administra las cuentas
-            registradas en NEXDESK.
+            registradas en SKYA.
           </p>
         </div>
 
@@ -488,7 +488,7 @@ export default function Usuarios() {
               Directorio de usuarios
             </h2>
 
-            <span className="badge text-bg-primary">
+            <span className={`badge skya-rol-${obtenerRol(usuarioActual || {})}`}>
               Rol actual: {obtenerRol(usuarioActual || {})}
             </span>
           </div>
@@ -497,16 +497,19 @@ export default function Usuarios() {
 
           <div className="row g-2 mb-3">
             <div className="col-lg-6">
-              <input
-                type="search"
-                className="form-control"
-                placeholder="Buscar por nombre, correo o documento..."
-                aria-label="Buscar usuarios"
-                value={busqueda}
-                onChange={(e) =>
-                  setBusqueda(e.target.value)
-                }
-              />
+              <div className="skya-search">
+                <i className="bi bi-search" aria-hidden="true"></i>
+                <input
+                  type="search"
+                  className="form-control"
+                  placeholder="Buscar por nombre, correo o documento..."
+                  aria-label="Buscar usuarios"
+                  value={busqueda}
+                  onChange={(e) =>
+                    setBusqueda(e.target.value)
+                  }
+                />
+              </div>
             </div>
 
             <div className="col-lg-3">
@@ -639,7 +642,7 @@ export default function Usuarios() {
                       {/* ROL */}
 
                       <td>
-                        <span className="badge text-bg-primary">
+                        <span className={`badge skya-rol-${obtenerRol(usuario)}`}>
                           {obtenerRol(usuario)}
                         </span>
                       </td>
