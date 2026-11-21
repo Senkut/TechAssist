@@ -14,14 +14,14 @@ export default function MainLayout() {
     <div className="nexdesk-app">
       <NavbarPrincipal />
 
-      <div className="skya-subheader">
-        <div className="skya-subheader-inner">
+      <div className="techassits-subheader">
+        <div className="techassits-subheader-inner">
           <div>
             <strong>{esPanel ? "Panel de Gestión" : seccion.titulo}</strong>
             <small>Sistema Integral de Gestión de Soporte Técnico</small>
           </div>
 
-          <div className="skya-crumbs">
+          <div className="techassits-crumbs">
             Inicio / <b>{esPanel ? "Panel de control" : seccion.titulo}</b>
           </div>
         </div>

@@ -399,7 +399,7 @@ export default function Usuarios() {
 
           <p className="text-secondary mb-0">
             Consulta, filtra y administra las cuentas
-            registradas en SKYA.
+            registradas en TechAssits.
           </p>
         </div>
 
@@ -488,7 +488,7 @@ export default function Usuarios() {
               Directorio de usuarios
             </h2>
 
-            <span className={`badge skya-rol-${obtenerRol(usuarioActual || {})}`}>
+            <span className={`badge techassits-rol-${obtenerRol(usuarioActual || {})}`}>
               Rol actual: {obtenerRol(usuarioActual || {})}
             </span>
           </div>
@@ -497,7 +497,7 @@ export default function Usuarios() {
 
           <div className="row g-2 mb-3">
             <div className="col-lg-6">
-              <div className="skya-search">
+              <div className="techassits-search">
                 <i className="bi bi-search" aria-hidden="true"></i>
                 <input
                   type="search"
@@ -642,7 +642,7 @@ export default function Usuarios() {
                       {/* ROL */}
 
                       <td>
-                        <span className={`badge skya-rol-${obtenerRol(usuario)}`}>
+                        <span className={`badge techassits-rol-${obtenerRol(usuario)}`}>
                           {obtenerRol(usuario)}
                         </span>
                       </td>

@@ -76,7 +76,7 @@
 .login-card .input-group-text { background: var(--bs-tertiary-bg); color: var(--bs-secondary-color); }
 
 /* =========================================================
-   SKYA · Tema visual (solo presentación, sin lógica)
+   TechAssits · Tema visual (solo presentación, sin lógica)
    Se carga DESPUÉS de index.css y App.css
 ========================================================= */
 
@@ -136,7 +136,7 @@ h1, h2, h3, h4, h5, h6 { letter-spacing: -0.01em; }
 
 /* ---------- Tarjetas ---------- */
 .nexdesk-content .card,
-.skya-card {
+.techassits-card {
   background: var(--sk-surface);
   border: 1px solid var(--sk-line);
   border-radius: var(--sk-radius);
@@ -196,12 +196,12 @@ h1, h2, h3, h4, h5, h6 { letter-spacing: -0.01em; }
 .form-control:focus, .form-select:focus { background-color: var(--sk-surface); }
 .form-label { font-size: 0.82rem; font-weight: 600; color: var(--sk-ink); }
 
-.skya-search { position: relative; }
-.skya-search > i {
+.techassits-search { position: relative; }
+.techassits-search > i {
   position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
   color: var(--sk-muted); pointer-events: none;
 }
-.skya-search > input { padding-left: 40px; }
+.techassits-search > input { padding-left: 40px; }
 
 /* ---------- Tablas ---------- */
 .nexdesk-content .table {
@@ -239,262 +239,262 @@ h1, h2, h3, h4, h5, h6 { letter-spacing: -0.01em; }
 .badge.text-bg-success { background-color: #16a34a !important; color: #fff !important; }
 .badge.text-bg-secondary { background-color: #64748b !important; }
 
-.skya-rol-superadmin { background-color: #0b3b3d !important; color: #fff !important; }
-.skya-rol-admin { background-color: #0f766e !important; color: #fff !important; }
-.skya-rol-tecnico { background-color: #0d9488 !important; color: #fff !important; }
-.skya-rol-usuario { background-color: #99e6dc !important; color: #064e48 !important; }
+.techassits-rol-superadmin { background-color: #0b3b3d !important; color: #fff !important; }
+.techassits-rol-admin { background-color: #0f766e !important; color: #fff !important; }
+.techassits-rol-tecnico { background-color: #0d9488 !important; color: #fff !important; }
+.techassits-rol-usuario { background-color: #99e6dc !important; color: #064e48 !important; }
 
 /* =========================================================
    NAVBAR SUPERIOR
 ========================================================= */
-.skya-nav {
+.techassits-nav {
   position: sticky; top: 0; z-index: 1030;
   background: linear-gradient(90deg, var(--sk-deep) 0%, var(--sk-deep-2) 100%);
   color: #fff;
   box-shadow: 0 6px 20px -12px rgba(0, 0, 0, 0.5);
 }
-.skya-nav-inner {
+.techassits-nav-inner {
   display: flex; align-items: center; gap: 22px;
   padding: 10px clamp(14px, 2.4vw, 36px);
   min-height: 66px;
 }
-.skya-brand {
+.techassits-brand {
   display: flex; align-items: center; gap: 11px;
   color: #fff; text-decoration: none; flex-shrink: 0;
 }
-.skya-brand:hover { color: #fff; }
-.skya-brand-mark {
+.techassits-brand:hover { color: #fff; }
+.techassits-brand-mark {
   width: 40px; height: 40px; border-radius: 12px;
   display: grid; place-items: center;
   background: linear-gradient(135deg, #14b8a6, #2dd4bf);
   box-shadow: 0 6px 14px -6px rgba(45, 212, 191, 0.8);
 }
-.skya-brand strong { display: block; font-size: 1.02rem; font-weight: 800; letter-spacing: 0.04em; line-height: 1.1; }
-.skya-brand small { display: block; font-size: 0.6rem; color: #9fc7c3; line-height: 1.2; }
+.techassits-brand strong { display: block; font-size: 1.02rem; font-weight: 800; letter-spacing: 0.04em; line-height: 1.1; }
+.techassits-brand small { display: block; font-size: 0.6rem; color: #9fc7c3; line-height: 1.2; }
 
-.skya-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; flex-wrap: wrap; }
-.skya-link {
+.techassits-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; flex-wrap: wrap; }
+.techassits-link {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 7px 14px; border-radius: 999px;
   font-size: 0.78rem; font-weight: 600;
   color: rgba(255, 255, 255, 0.82); text-decoration: none;
   transition: background-color 0.18s, color 0.18s;
 }
-.skya-link:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
-.skya-link.activo { background: var(--sk-mint); color: #053a36; font-weight: 700; }
-.skya-link i { font-size: 0.9rem; line-height: 1; }
+.techassits-link:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.techassits-link.activo { background: var(--sk-mint); color: #053a36; font-weight: 700; }
+.techassits-link i { font-size: 0.9rem; line-height: 1; }
 
-.skya-nav-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0; }
-.skya-nav-toggle {
+.techassits-nav-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0; }
+.techassits-nav-toggle {
   display: none; width: 40px; height: 40px; border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.25); background: transparent; color: #fff; font-size: 1.3rem;
 }
 
-.skya-nav .btn-tema {
+.techassits-nav .btn-tema {
   width: 36px; height: 36px; background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.18); box-shadow: none; font-size: 1rem;
 }
-.skya-nav .btn-tema .bi-sun-fill { color: #fcd34d; }
-.skya-nav .btn-tema .bi-moon-stars-fill { color: #c7d2fe; }
+.techassits-nav .btn-tema .bi-sun-fill { color: #fcd34d; }
+.techassits-nav .btn-tema .bi-moon-stars-fill { color: #c7d2fe; }
 
-.skya-bell {
+.techassits-bell {
   width: 38px; height: 38px; padding: 0 !important; border-radius: 50% !important;
   display: inline-grid !important; place-items: center;
   background: rgba(255, 255, 255, 0.1) !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
   color: #fcd34d !important; box-shadow: none !important;
 }
-.skya-bell:hover { background: rgba(255, 255, 255, 0.2) !important; }
-.skya-bell .badge { font-size: 0.6rem; padding: 0.3em 0.5em; border: 2px solid var(--sk-deep); }
+.techassits-bell:hover { background: rgba(255, 255, 255, 0.2) !important; }
+.techassits-bell .badge { font-size: 0.6rem; padding: 0.3em 0.5em; border: 2px solid var(--sk-deep); }
 
-.skya-user { color: #fff !important; padding: 4px 6px !important; border-radius: 999px !important; }
-.skya-user:hover { background: rgba(255, 255, 255, 0.08); }
-.skya-user .nexdesk-avatar {
+.techassits-user { color: #fff !important; padding: 4px 6px !important; border-radius: 999px !important; }
+.techassits-user:hover { background: rgba(255, 255, 255, 0.08); }
+.techassits-user .nexdesk-avatar {
   width: 34px; height: 34px; background: #fff; color: var(--sk-teal); font-size: 0.85rem;
   box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.35);
 }
-.skya-user strong { color: #fff; font-size: 0.78rem; }
-.skya-user small { color: #9fc7c3 !important; font-size: 0.66rem; text-transform: capitalize; }
+.techassits-user strong { color: #fff; font-size: 0.78rem; }
+.techassits-user small { color: #9fc7c3 !important; font-size: 0.66rem; text-transform: capitalize; }
 
-.skya-nav .dropdown-menu { border-radius: 14px; padding: 8px; min-width: 220px; }
-.skya-nav .dropdown-item { border-radius: 9px; font-size: 0.85rem; }
+.techassits-nav .dropdown-menu { border-radius: 14px; padding: 8px; min-width: 220px; }
+.techassits-nav .dropdown-item { border-radius: 9px; font-size: 0.85rem; }
 
 /* Subcabecera de página */
-.skya-subheader { background: var(--sk-surface); border-bottom: 1px solid var(--sk-line); }
-.skya-subheader-inner {
+.techassits-subheader { background: var(--sk-surface); border-bottom: 1px solid var(--sk-line); }
+.techassits-subheader-inner {
   display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
   padding: 12px clamp(14px, 2.4vw, 36px);
 }
-.skya-subheader strong { display: block; font-size: 0.9rem; font-weight: 800; color: var(--sk-ink); }
-.skya-subheader small { color: var(--sk-muted); font-size: 0.7rem; }
-.skya-crumbs { font-size: 0.72rem; color: var(--sk-muted); }
-.skya-crumbs b { color: var(--sk-ink); font-weight: 700; }
+.techassits-subheader strong { display: block; font-size: 0.9rem; font-weight: 800; color: var(--sk-ink); }
+.techassits-subheader small { color: var(--sk-muted); font-size: 0.7rem; }
+.techassits-crumbs { font-size: 0.72rem; color: var(--sk-muted); }
+.techassits-crumbs b { color: var(--sk-ink); font-weight: 700; }
 
 @media (max-width: 991px) {
-  .skya-nav-toggle { display: inline-grid; place-items: center; }
-  .skya-nav-inner { flex-wrap: wrap; gap: 10px; }
-  .skya-links {
+  .techassits-nav-toggle { display: inline-grid; place-items: center; }
+  .techassits-nav-inner { flex-wrap: wrap; gap: 10px; }
+  .techassits-links {
     display: none; order: 5; width: 100%; flex-direction: column; align-items: stretch;
     padding-bottom: 10px;
   }
-  .skya-links.abierto { display: flex; }
-  .skya-link { padding: 11px 14px; font-size: 0.88rem; }
-  .skya-user .nexdesk-user-info { display: none; }
+  .techassits-links.abierto { display: flex; }
+  .techassits-link { padding: 11px 14px; font-size: 0.88rem; }
+  .techassits-user .nexdesk-user-info { display: none; }
 }
 
 /* =========================================================
    LOGIN
 ========================================================= */
-.skya-login {
+.techassits-login {
   position: relative; min-height: 100vh; overflow: hidden;
   display: flex; align-items: center;
   background:
     radial-gradient(circle at 20% 30%, rgba(45, 212, 191, 0.16), transparent 45%),
     linear-gradient(135deg, #f7fcfb 0%, #e4f4f1 100%);
 }
-[data-bs-theme="dark"] .skya-login {
+[data-bs-theme="dark"] .techassits-login {
   background:
     radial-gradient(circle at 20% 30%, rgba(45, 212, 191, 0.12), transparent 45%),
     linear-gradient(135deg, #07191a 0%, #0b2527 100%);
 }
-.skya-login-corner {
+.techassits-login-corner {
   position: absolute; top: -170px; right: -150px; width: 380px; height: 380px; border-radius: 50%;
   background: linear-gradient(135deg, #0f766e, #2dd4bf); opacity: 0.95; pointer-events: none;
 }
-.skya-login-wave { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 26vh; min-height: 140px; pointer-events: none; }
-.skya-login-toggle { position: absolute; top: 18px; right: 22px; z-index: 6; }
+.techassits-login-wave { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 26vh; min-height: 140px; pointer-events: none; }
+.techassits-login-toggle { position: absolute; top: 18px; right: 22px; z-index: 6; }
 
-.skya-login-grid {
+.techassits-login-grid {
   position: relative; z-index: 2; width: 100%; max-width: 1180px; margin: 0 auto;
   padding: 40px 24px 120px;
   display: grid; grid-template-columns: 1fr minmax(320px, 410px); gap: 48px; align-items: center;
 }
-.skya-login-brand { text-align: center; }
-.skya-wordmark {
+.techassits-login-brand { text-align: center; }
+.techassits-wordmark {
   font-size: clamp(3rem, 6vw, 4.6rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1;
   color: var(--sk-ink); margin: 14px 0 12px;
 }
-.skya-login-brand p { color: var(--sk-ink); font-size: 1.05rem; line-height: 1.35; margin: 0 auto; max-width: 320px; }
-.skya-login-brand hr { width: 260px; margin: 26px auto; border-color: var(--sk-line); opacity: 1; }
-.skya-tagline { font-style: italic; color: var(--sk-ink); font-size: 1.05rem; }
-.skya-tagline b { color: var(--sk-teal); font-style: italic; }
-[data-bs-theme="dark"] .skya-tagline b { color: #5eead4; }
+.techassits-login-brand p { color: var(--sk-ink); font-size: 1.05rem; line-height: 1.35; margin: 0 auto; max-width: 320px; }
+.techassits-login-brand hr { width: 260px; margin: 26px auto; border-color: var(--sk-line); opacity: 1; }
+.techassits-tagline { font-style: italic; color: var(--sk-ink); font-size: 1.05rem; }
+.techassits-tagline b { color: var(--sk-teal); font-style: italic; }
+[data-bs-theme="dark"] .techassits-tagline b { color: #5eead4; }
 
-.skya-login-card {
+.techassits-login-card {
   background: var(--sk-surface);
   border: 1px solid var(--sk-line); border-radius: 26px;
   padding: 30px 30px 26px;
   box-shadow: 0 30px 60px -28px rgba(10, 60, 62, 0.45);
 }
-.skya-login-card h1 { font-size: 1.35rem; font-weight: 800; text-align: center; margin: 8px 0 14px; }
-.skya-divider { display: flex; align-items: center; gap: 10px; color: var(--sk-muted); font-size: 0.72rem; margin-bottom: 20px; }
-.skya-divider::before, .skya-divider::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--sk-teal)); opacity: 0.5; }
-.skya-divider::after { transform: scaleX(-1); }
+.techassits-login-card h1 { font-size: 1.35rem; font-weight: 800; text-align: center; margin: 8px 0 14px; }
+.techassits-divider { display: flex; align-items: center; gap: 10px; color: var(--sk-muted); font-size: 0.72rem; margin-bottom: 20px; }
+.techassits-divider::before, .techassits-divider::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--sk-teal)); opacity: 0.5; }
+.techassits-divider::after { transform: scaleX(-1); }
 
-.skya-field { position: relative; margin-bottom: 14px; }
-.skya-field > i.lead {
+.techassits-field { position: relative; margin-bottom: 14px; }
+.techassits-field > i.lead {
   position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--sk-muted); font-size: 1rem;
 }
-.skya-field .form-control { padding-left: 42px; padding-right: 44px; min-height: 46px; }
-.skya-eye {
+.techassits-field .form-control { padding-left: 42px; padding-right: 44px; min-height: 46px; }
+.techassits-eye {
   position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
   border: 0; background: transparent; color: var(--sk-muted); width: 32px; height: 32px; border-radius: 50%;
 }
-.skya-eye:hover { background: var(--sk-mint-soft); color: var(--sk-teal); }
+.techassits-eye:hover { background: var(--sk-mint-soft); color: var(--sk-teal); }
 
-.skya-submit {
+.techassits-submit {
   width: 100%; min-height: 46px; border-radius: 14px !important; margin-top: 6px;
   background-image: linear-gradient(135deg, #0f766e, #0b5f58) !important;
   box-shadow: 0 14px 24px -14px rgba(15, 118, 110, 0.9) !important;
   gap: 10px;
 }
 
-.skya-login-card section { margin-top: 18px !important; }
-.skya-login-foot { text-align: center; color: var(--sk-teal); font-size: 0.75rem; font-weight: 700; margin: 18px 0 0; }
-[data-bs-theme="dark"] .skya-login-foot { color: #5eead4; }
+.techassits-login-card section { margin-top: 18px !important; }
+.techassits-login-foot { text-align: center; color: var(--sk-teal); font-size: 0.75rem; font-weight: 700; margin: 18px 0 0; }
+[data-bs-theme="dark"] .techassits-login-foot { color: #5eead4; }
 
 @media (max-width: 991px) {
-  .skya-login-grid { grid-template-columns: 1fr; padding: 70px 16px 120px; }
-  .skya-login-brand { display: none; }
-  .skya-login-card { margin: 0 auto; width: 100%; max-width: 420px; }
+  .techassits-login-grid { grid-template-columns: 1fr; padding: 70px 16px 120px; }
+  .techassits-login-brand { display: none; }
+  .techassits-login-card { margin: 0 auto; width: 100%; max-width: 420px; }
 }
 
 /* Cambiar contraseña (usa el mismo fondo) */
-.skya-login .card { border-radius: 26px; }
+.techassits-login .card { border-radius: 26px; }
 
 /* =========================================================
    DASHBOARD
 ========================================================= */
-.skya-hero {
+.techassits-hero {
   height: 100%; color: #fff; border-radius: 22px; padding: 28px;
   background: linear-gradient(165deg, #0d4a4a 0%, #0a3436 100%);
   box-shadow: var(--sk-shadow);
   display: flex; flex-direction: column;
 }
-.skya-hero h1 { font-size: 1.7rem; font-weight: 800; margin: 0 0 6px; }
-.skya-hero > p { color: #b8dcd8; font-size: 0.82rem; margin: 0 0 22px; }
-.skya-hero-account {
+.techassits-hero h1 { font-size: 1.7rem; font-weight: 800; margin: 0 0 6px; }
+.techassits-hero > p { color: #b8dcd8; font-size: 0.82rem; margin: 0 0 22px; }
+.techassits-hero-account {
   margin-top: auto; padding: 18px; border-radius: 16px;
   background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.1);
 }
-.skya-hero-account .rotulo { font-size: 0.62rem; letter-spacing: 0.1em; color: #8fc4be; margin-bottom: 12px; }
-.skya-hero-avatar {
+.techassits-hero-account .rotulo { font-size: 0.62rem; letter-spacing: 0.1em; color: #8fc4be; margin-bottom: 12px; }
+.techassits-hero-avatar {
   width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
   background: rgba(255, 255, 255, 0.92); color: var(--sk-teal);
   display: grid; place-items: center; font-weight: 800;
 }
-.skya-hero-account strong { font-size: 0.9rem; }
-.skya-hero-account small { color: #b8dcd8; font-size: 0.72rem; display: block; word-break: break-all; }
-.skya-hero-role {
+.techassits-hero-account strong { font-size: 0.9rem; }
+.techassits-hero-account small { color: #b8dcd8; font-size: 0.72rem; display: block; word-break: break-all; }
+.techassits-hero-role {
   display: inline-block; margin-top: 4px; padding: 2px 11px; border-radius: 999px;
   background: var(--sk-mint); color: #053a36; font-size: 0.62rem; font-weight: 800;
 }
-.skya-hero .btn-hero {
+.techassits-hero .btn-hero {
   margin-top: 16px; border: 1px solid rgba(255, 255, 255, 0.55); color: #fff; background: transparent;
   font-size: 0.76rem; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-decoration: none;
 }
-.skya-hero .btn-hero:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
+.techassits-hero .btn-hero:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
 
 /* Tarjetas de indicador */
-.skya-stat {
+.techassits-stat {
   position: relative; overflow: hidden; height: 100%;
   background: var(--sk-surface); border: 1px solid var(--sk-line); border-radius: 18px;
   padding: 16px 18px 20px; box-shadow: var(--sk-shadow);
   min-height: 118px;
 }
-.skya-stat .rotulo { font-size: 0.72rem; color: var(--sk-muted); font-weight: 600; }
-.skya-stat .valor { font-size: 2.1rem; font-weight: 800; line-height: 1.1; margin-top: 8px; color: var(--sk-ink); }
-.skya-stat .icono {
+.techassits-stat .rotulo { font-size: 0.72rem; color: var(--sk-muted); font-weight: 600; }
+.techassits-stat .valor { font-size: 2.1rem; font-weight: 800; line-height: 1.1; margin-top: 8px; color: var(--sk-ink); }
+.techassits-stat .icono {
   position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 10px;
   display: grid; place-items: center; background: var(--sk-mint-soft); color: var(--sk-teal); font-size: 1rem;
 }
-.skya-stat::after {
+.techassits-stat::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34px; opacity: 0.55;
   background: radial-gradient(120px 22px at 70% 120%, rgba(45, 212, 191, 0.25), transparent);
 }
-.skya-stat.principal { background: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 100%); border-color: transparent; }
-.skya-stat.principal .rotulo, .skya-stat.principal .valor { color: #fff; }
-.skya-stat.principal .icono { background: rgba(255, 255, 255, 0.25); color: #fff; }
+.techassits-stat.principal { background: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 100%); border-color: transparent; }
+.techassits-stat.principal .rotulo, .techassits-stat.principal .valor { color: #fff; }
+.techassits-stat.principal .icono { background: rgba(255, 255, 255, 0.25); color: #fff; }
 
 /* Gráficas */
-.skya-chart-card { background: var(--sk-surface); border: 1px solid var(--sk-line); border-radius: 18px; padding: 22px; box-shadow: var(--sk-shadow); height: 100%; }
-.skya-chart-card h3 { font-size: 0.95rem; font-weight: 800; display: flex; align-items: center; gap: 8px; margin: 0; }
-.skya-chart-card h3 i { color: var(--sk-teal); }
-.skya-chart-card .sub { font-size: 0.72rem; color: var(--sk-muted); margin: 2px 0 14px; }
-.skya-pill { font-size: 0.66rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: var(--sk-mint-soft); color: var(--sk-teal); }
-[data-bs-theme="dark"] .skya-pill { color: #5eead4; }
+.techassits-chart-card { background: var(--sk-surface); border: 1px solid var(--sk-line); border-radius: 18px; padding: 22px; box-shadow: var(--sk-shadow); height: 100%; }
+.techassits-chart-card h3 { font-size: 0.95rem; font-weight: 800; display: flex; align-items: center; gap: 8px; margin: 0; }
+.techassits-chart-card h3 i { color: var(--sk-teal); }
+.techassits-chart-card .sub { font-size: 0.72rem; color: var(--sk-muted); margin: 2px 0 14px; }
+.techassits-pill { font-size: 0.66rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: var(--sk-mint-soft); color: var(--sk-teal); }
+[data-bs-theme="dark"] .techassits-pill { color: #5eead4; }
 
-.skya-donut { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
-.skya-donut svg { flex-shrink: 0; }
-.skya-legend { flex: 1; min-width: 150px; list-style: none; margin: 0; padding: 0; }
-.skya-legend li { display: flex; align-items: center; gap: 9px; font-size: 0.78rem; padding: 4px 0; }
-.skya-legend .punto { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-.skya-legend b { margin-left: auto; }
+.techassits-donut { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.techassits-donut svg { flex-shrink: 0; }
+.techassits-legend { flex: 1; min-width: 150px; list-style: none; margin: 0; padding: 0; }
+.techassits-legend li { display: flex; align-items: center; gap: 9px; font-size: 0.78rem; padding: 4px 0; }
+.techassits-legend .punto { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.techassits-legend b { margin-left: auto; }
 
-.skya-actividad svg { width: 100%; height: auto; display: block; }
+.techassits-actividad svg { width: 100%; height: auto; display: block; }
 
-.skya-prio .progress { background: var(--bs-tertiary-bg); border-radius: 999px; }
-.skya-prio .progress-bar { border-radius: 999px; }
+.techassits-prio .progress { background: var(--bs-tertiary-bg); border-radius: 999px; }
+.techassits-prio .progress-bar { border-radius: 999px; }
 
 /* Módulos */
 .nexdesk-module-card { border-radius: 18px !important; }
@@ -507,9 +507,9 @@ h1, h2, h3, h4, h5, h6 { letter-spacing: -0.01em; }
 .nexdesk-toast-icon { background: var(--sk-mint-soft); color: var(--sk-teal); }
 
 @media (prefers-reduced-motion: reduce) {
-  .skya-link { transition: none; }
+  .techassits-link { transition: none; }
 }
 
 /* Login: el mensaje "Servidor accesible" sobra en el diseño compacto */
-.skya-login-card section p.text-secondary { display: none; }
-.skya-login-card section .btn-link { font-size: 0.7rem; }
+.techassits-login-card section p.text-secondary { display: none; }
+.techassits-login-card section .btn-link { font-size: 0.7rem; }

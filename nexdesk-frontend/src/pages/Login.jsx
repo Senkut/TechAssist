@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import EstadoBackend from "../components/EstadoBackend";
 import { useAuth } from "../hooks/useAuth";
 import BotonTema from "../components/BotonTema";
-import { LogoSkya } from "../components/NavbarPrincipal";
+import { LogoTechAssits } from "../components/NavbarPrincipal";
 
 export default function Login() {
   // 1. Navegación y autenticación
@@ -68,17 +68,17 @@ export default function Login() {
 
   // 4. Interfaz de inicio de sesión
   return (
-    <div className="skya-login">
-      <div className="skya-login-corner" aria-hidden="true" />
+    <div className="techassits-login">
+      <div className="techassits-login-corner" aria-hidden="true" />
 
       <svg
-        className="skya-login-wave"
+        className="techassits-login-wave"
         viewBox="0 0 1440 220"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id="skya-ola" x1="0" y1="0" x2="1" y2="0">
+          <linearGradient id="techassits-ola" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0" stopColor="#0b5f58" />
             <stop offset="1" stopColor="#0f766e" />
           </linearGradient>
@@ -90,23 +90,23 @@ export default function Login() {
         />
         <path
           d="M0 130 C260 70 560 80 800 125 C1050 170 1250 150 1440 105 L1440 220 L0 220 Z"
-          fill="url(#skya-ola)"
+          fill="url(#techassits-ola)"
         />
       </svg>
 
-      <div className="skya-login-toggle">
+      <div className="techassits-login-toggle">
         <BotonTema />
       </div>
 
-      <div className="skya-login-grid">
+      <div className="techassits-login-grid">
 
         {/* Identidad visual */}
-        <section className="skya-login-brand" aria-label="Presentación de SKYA">
-          <LogoSkya tamano={170} />
-          <div className="skya-wordmark">SKYA</div>
+        <section className="techassits-login-brand" aria-label="Presentación de TechAssits">
+          <LogoTechAssits tamano={170} />
+          <div className="techassits-wordmark">TechAssits</div>
           <p>Sistema Integral de Gestión de Soporte Técnico</p>
           <hr />
-          <div className="skya-tagline">
+          <div className="techassits-tagline">
             Conectamos soluciones,
             <br />
             brindamos <b>soporte</b>
@@ -114,13 +114,13 @@ export default function Login() {
         </section>
 
         {/* Tarjeta de acceso */}
-        <div className="skya-login-card">
+        <div className="techassits-login-card">
           <div className="text-center">
-            <LogoSkya tamano={54} />
+            <LogoTechAssits tamano={54} />
           </div>
 
-          <h1>Bienvenido a SKYA</h1>
-          <div className="skya-divider">Inicia sesión para continuar</div>
+          <h1>Bienvenido a TechAssits</h1>
+          <div className="techassits-divider">Inicia sesión para continuar</div>
 
           {/* Mensajes de error */}
           {error && (
@@ -132,7 +132,7 @@ export default function Login() {
           {/* Formulario */}
           <form onSubmit={manejarLogin}>
 
-            <div className="skya-field">
+            <div className="techassits-field">
               <i className="bi bi-envelope lead" aria-hidden="true"></i>
               <input
                 id="email"
@@ -147,7 +147,7 @@ export default function Login() {
               />
             </div>
 
-            <div className="skya-field">
+            <div className="techassits-field">
               <i className="bi bi-lock lead" aria-hidden="true"></i>
               <input
                 id="password"
@@ -162,7 +162,7 @@ export default function Login() {
               />
               <button
                 type="button"
-                className="skya-eye"
+                className="techassits-eye"
                 onClick={() => setVerPassword((v) => !v)}
                 aria-label={verPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
               >
@@ -172,7 +172,7 @@ export default function Login() {
 
             <button
               type="submit"
-              className="btn btn-primary skya-submit"
+              className="btn btn-primary techassits-submit"
               disabled={cargando}
             >
               {cargando ? "Validando..." : (
@@ -188,9 +188,9 @@ export default function Login() {
           {/* Verificación del backend */}
           <EstadoBackend />
 
-          <p className="skya-login-foot">
+          <p className="techassits-login-foot">
             <i className="bi bi-diamond me-2" aria-hidden="true"></i>
-            Acceso autorizado a SKYA
+            Acceso autorizado a TechAssits
           </p>
         </div>
 

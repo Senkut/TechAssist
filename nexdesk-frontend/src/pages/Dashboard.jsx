@@ -68,15 +68,15 @@ export default function Dashboard() {
         error={errorAnalitica}
         onActualizar={() => setRecargaAnalitica(n => n + 1)}
         panelLateral={
-          <div className="skya-hero">
+          <div className="techassits-hero">
             <h1>¡Hola, {nombre}!</h1>
-            <p>Bienvenido al centro de gestión de SKYA.</p>
+            <p>Bienvenido al centro de gestión de TechAssits.</p>
 
-            <div className="skya-hero-account">
+            <div className="techassits-hero-account">
               <div className="rotulo">CUENTA AUTENTICADA</div>
 
               <div className="d-flex align-items-center gap-3">
-                <span className="skya-hero-avatar">
+                <span className="techassits-hero-avatar">
                   {nombre.charAt(0).toUpperCase()}
                 </span>
 
@@ -87,7 +87,7 @@ export default function Dashboard() {
                       .join(" ")}
                   </strong>
                   <small>{usuario?.email}</small>
-                  <span className="skya-hero-role">{usuario?.rol}</span>
+                  <span className="techassits-hero-role">{usuario?.rol}</span>
                 </div>
               </div>
 
@@ -145,7 +145,7 @@ export default function Dashboard() {
 
       <div className="alert alert-light border mt-4 rounded-3">
         <FlujoTickets />
-        Los módulos se conectarán a la API REST de SKYA
+        Los módulos se conectarán a la API REST de TechAssits
         en los siguientes bloques.
       </div>
 

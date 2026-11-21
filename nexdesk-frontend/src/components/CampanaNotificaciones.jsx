@@ -106,7 +106,7 @@ export default function CampanaNotificaciones() {
     <div className="position-relative">
       <button
         type="button"
-        className="btn skya-bell position-relative"
+        className="btn techassits-bell position-relative"
         aria-label={`Notificaciones: ${pendientes} sin leer`}
         aria-expanded={abierto}
         onClick={() => {

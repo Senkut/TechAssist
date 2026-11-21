@@ -244,7 +244,7 @@ export default function AnaliticaTickets({
       .toLocaleDateString("sv-SE");
 
     const nombreArchivo =
-      `SKYA_reporte_tickets_${fecha}.csv`;
+      `TechAssits_reporte_tickets_${fecha}.csv`;
 
     descargarCSV(nombreArchivo, filas);
   }
@@ -268,7 +268,7 @@ export default function AnaliticaTickets({
     pdf.setTextColor(255, 255, 255);
     pdf.setFont("helvetica", "bold");
     pdf.setFontSize(19);
-    pdf.text("SKYA", margen, 13);
+    pdf.text("TechAssits", margen, 13);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
     pdf.text("Sistema Integral de Gestion de Soporte Tecnico", margen, 20);
@@ -358,12 +358,12 @@ export default function AnaliticaTickets({
       pdf.line(margen, alto - 12, ancho - margen, alto - 12);
       pdf.setTextColor(...gris);
       pdf.setFontSize(8);
-      pdf.text("SKYA | Reporte de tickets", margen, alto - 7);
+      pdf.text("TechAssits | Reporte de tickets", margen, alto - 7);
       pdf.text(`Pagina ${pagina} de ${paginas}`, ancho - margen, alto - 7, { align: "right" });
     }
 
     const fechaArchivo = new Date().toLocaleDateString("sv-SE");
-    pdf.save(`SKYA_reporte_tickets_${fechaArchivo}.pdf`);
+    pdf.save(`TechAssits_reporte_tickets_${fechaArchivo}.pdf`);
   }
 
   // ========================================
@@ -453,7 +453,7 @@ export default function AnaliticaTickets({
           <div className="row g-3">
             {indicadores.map(([nombre, valor, icono, principal]) => (
               <div className="col-6" key={nombre}>
-                <div className={`skya-stat ${principal ? "principal" : ""}`}>
+                <div className={`techassits-stat ${principal ? "principal" : ""}`}>
                   <div className="rotulo">{nombre}</div>
                   <div className="valor">{sinDatos ? "…" : valor}</div>
                   <span className="icono">
@@ -475,14 +475,14 @@ export default function AnaliticaTickets({
 
         {/* TICKETS POR ESTADO */}
         <div className="col-12 col-lg-5">
-          <div className="skya-chart-card">
+          <div className="techassits-chart-card">
             <h3>
               <i className="bi bi-pie-chart-fill" aria-hidden="true"></i>
               Tickets por estado
             </h3>
             <p className="sub">Distribución según el estado actual</p>
 
-            <div className="skya-donut">
+            <div className="techassits-donut">
               <svg
                 width="150"
                 height="150"
@@ -521,7 +521,7 @@ export default function AnaliticaTickets({
                 </text>
               </svg>
 
-              <ul className="skya-legend">
+              <ul className="techassits-legend">
                 {resumen.estados.map((estado) => (
                   <li key={estado.clave}>
                     <span className="punto" style={{ background: estado.color }} />
@@ -536,7 +536,7 @@ export default function AnaliticaTickets({
 
         {/* ACTIVIDAD RECIENTE */}
         <div className="col-12 col-lg-7">
-          <div className="skya-chart-card skya-actividad">
+          <div className="techassits-chart-card techassits-actividad">
             <div className="d-flex justify-content-between align-items-start gap-2">
               <div>
                 <h3>
@@ -547,7 +547,7 @@ export default function AnaliticaTickets({
                   Tickets creados en las últimas cuatro semanas
                 </p>
               </div>
-              <span className="skya-pill">Último mes</span>
+              <span className="techassits-pill">Último mes</span>
             </div>
 
             <svg
@@ -556,7 +556,7 @@ export default function AnaliticaTickets({
               aria-label="Tickets creados por semana en el último mes"
             >
               <defs>
-                <linearGradient id="skya-area" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient id="techassits-area" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stopColor="#2dd4bf" stopOpacity="0.35" />
                   <stop offset="1" stopColor="#2dd4bf" stopOpacity="0" />
                 </linearGradient>
@@ -569,7 +569,7 @@ export default function AnaliticaTickets({
                 />
               ))}
 
-              <polygon points={areaActividad} fill="url(#skya-area)" />
+              <polygon points={areaActividad} fill="url(#techassits-area)" />
               <polyline
                 points={lineaActividad}
                 fill="none" stroke="#0f766e" strokeWidth="2.5"
@@ -604,7 +604,7 @@ export default function AnaliticaTickets({
 
         {/* DISTRIBUCIÓN POR PRIORIDAD */}
         <div className="col-12">
-          <div className="skya-chart-card skya-prio">
+          <div className="techassits-chart-card techassits-prio">
             <h3 className="mb-3">
               <i className="bi bi-flag-fill" aria-hidden="true"></i>
               Distribución por prioridad

@@ -21,7 +21,7 @@ export default function ModuloPendiente({ titulo }) {
           <p className="text-secondary">
             La navegación de este módulo ya está preparada.
             Sus operaciones se conectarán a los endpoints
-            existentes del backend de SKYA.
+            existentes del backend de TechAssits.
           </p>
 
           <Link to="/dashboard" className="btn btn-outline-primary">

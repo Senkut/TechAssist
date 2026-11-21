@@ -32,7 +32,7 @@ export default function ToastBienvenida({ nombre, onCerrar }) {
             ¡Bienvenido/a, {nombre}!
           </div>
           <div className="text-secondary small mt-1">
-            Has iniciado sesión correctamente en SKYA.
+            Has iniciado sesión correctamente en TechAssits.
           </div>
         </div>
 

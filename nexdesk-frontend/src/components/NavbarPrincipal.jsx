@@ -6,14 +6,14 @@ import BotonTema from "./BotonTema";
 import CampanaNotificaciones from "./CampanaNotificaciones";
 
 /**
- * Logo SKYA (nube + "S" + píxeles) dibujado en SVG.
+ * Logo TechAssits (nube + "S" + píxeles) dibujado en SVG.
  * - variante "color": para fondos claros
  * - variante "claro": para fondos oscuros (blanco)
  *
  * Si tienes el logo original, puedes reemplazar este componente por:
- *   <img src={logo} alt="SKYA" width={tamano} />
+ *   <img src={logo} alt="TechAssits" width={tamano} />
  */
-export function LogoSkya({ tamano = 64, variante = "color", className = "" }) {
+export function LogoTechAssits({ tamano = 64, variante = "color", className = "" }) {
   const id = useId().replace(/:/g, "");
   const claro = variante === "claro";
 
@@ -29,7 +29,7 @@ export function LogoSkya({ tamano = 64, variante = "color", className = "" }) {
       viewBox="0 0 120 94"
       fill="none"
       role="img"
-      aria-label="SKYA"
+      aria-label="TechAssits"
     >
       {!claro && (
         <defs>
@@ -97,23 +97,23 @@ export default function NavbarPrincipal() {
   // ==========================================
 
   return (
-    <header className="skya-nav">
-      <div className="skya-nav-inner">
+    <header className="techassits-nav">
+      <div className="techassits-nav-inner">
 
         {/* MARCA */}
-        <Link to="/dashboard" className="skya-brand" aria-label="SKYA, ir al panel">
-          <span className="skya-brand-mark">
-            <LogoSkya tamano={26} variante="claro" />
+        <Link to="/dashboard" className="techassits-brand" aria-label="TechAssits, ir al panel">
+          <span className="techassits-brand-mark">
+            <LogoTechAssits tamano={26} variante="claro" />
           </span>
           <span>
-            <strong>SKYA</strong>
+            <strong>TechAssits</strong>
             <small>Sistema Integral de Gestión</small>
           </span>
         </Link>
 
         {/* NAVEGACIÓN PRINCIPAL */}
         <nav
-          className={`skya-links ${menuAbierto ? "abierto" : ""}`}
+          className={`techassits-links ${menuAbierto ? "abierto" : ""}`}
           aria-label="Navegación principal"
         >
           {opciones.map((opcion) => (
@@ -122,7 +122,7 @@ export default function NavbarPrincipal() {
               to={opcion.ruta}
               onClick={() => setMenuAbierto(false)}
               className={({ isActive }) =>
-                `skya-link ${isActive ? "activo" : ""}`
+                `techassits-link ${isActive ? "activo" : ""}`
               }
             >
               <i className={`bi ${ICONOS[opcion.ruta] || "bi-circle"}`} aria-hidden="true"></i>
@@ -132,7 +132,7 @@ export default function NavbarPrincipal() {
         </nav>
 
         {/* ACCIONES */}
-        <div className="skya-nav-actions">
+        <div className="techassits-nav-actions">
 
           <BotonTema />
 
@@ -141,7 +141,7 @@ export default function NavbarPrincipal() {
           {/* MENÚ DEL USUARIO */}
           <div className="dropdown">
             <button
-              className="btn d-flex align-items-center gap-2 skya-user"
+              className="btn d-flex align-items-center gap-2 techassits-user"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -189,7 +189,7 @@ export default function NavbarPrincipal() {
 
           <button
             type="button"
-            className="skya-nav-toggle"
+            className="techassits-nav-toggle"
             onClick={() => setMenuAbierto((v) => !v)}
             aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={menuAbierto}
